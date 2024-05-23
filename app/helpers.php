@@ -1,4 +1,5 @@
 <?php
+
 use Symfony\Component\HttpFoundation\File\File;
 use Illuminate\Support\Facades\Storage;
 
@@ -68,8 +69,9 @@ if (!function_exists('get_file')) {
     }
 }
 
-if(!function_exists('log_send_response')){
-    function log_send_response($log){
+if (!function_exists('log_send_response')) {
+    function log_send_response($log)
+    {
         if (!property_exists($log, 'attributes')) {
             $log->id = '1A';
             $log->message = 'Falló el log';

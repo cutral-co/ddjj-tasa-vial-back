@@ -8,24 +8,25 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('dj_items', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('dj_id');
+            $table->float('m3');
             $table->timestamps();
+
+            /* Relaciones */
+            $table->foreign('dj_id')->references('id')->on('ddjj');
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('dj_items');
     }
 };

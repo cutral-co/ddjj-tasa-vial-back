@@ -26,7 +26,7 @@ class PermissionsDemoSeeder extends Seeder
         Permission::create(['name' => 'role.asign', 'description' => 'Puede otorgar o quitar permisos']);
 
         // create roles and assign existing permissions
-        $role1 = Role::create(['name' => 'admin', 'description' => 'Administrador supremo']);
+        $role1 = Role::create(['name' => 'sudo', 'description' => 'SUDO']);
         $role1->givePermissionTo('permission.view');
         $role1->givePermissionTo('permission.asign');
         $role1->givePermissionTo('role.view');
