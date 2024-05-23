@@ -13,12 +13,11 @@ class DeclaracionJurada extends Model
         'id',
         'periodo',
         'razon_social',
+        'user_id'
     ];
 
     public function items()
     {
         return $this->hasMany(ItemDeclaracionJurada::class, 'order_id');
     }
-
-
 }

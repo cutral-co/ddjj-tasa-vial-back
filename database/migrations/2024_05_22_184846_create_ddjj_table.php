@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('periodo', 6);
             $table->string('razon_social');
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
             /* Relaciones */
