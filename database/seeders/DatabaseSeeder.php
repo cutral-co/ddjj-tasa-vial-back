@@ -20,6 +20,28 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('20999999991'),
         ]);
 
+        DB::table('derivados')->insert([
+            'name' => 'Derivado 01',
+        ]);
+
+        DB::table('coeficientes')->insert([
+            'name' => 'coef_01',
+            'value' => 1.37,
+            'description' => 'Coef 01'
+        ]);
+
+        DB::table('coeficientes')->insert([
+            'name' => 'coef_02',
+            'value' => 1.04,
+            'description' => 'Coef 02'
+        ]);
+
+        DB::table('coeficientes')->insert([
+            'name' => 'coef_03',
+            'value' => 1.75,
+            'description' => 'Coef 03'
+        ]);
+
         $this->call([
             PermissionsDemoSeeder::class,
         ]);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Derivado;
 use Illuminate\Http\Request;
 
 class DerivadoController extends Controller
@@ -12,9 +13,10 @@ class DerivadoController extends Controller
     public function index()
     {
         try {
-        
+            $derivados = Derivado::all();
+            return sendResponse($derivados);
         } catch (\Exception $e) {
-            $log = saveLog($e->getMessage(), get_class().'::'. __FUNCTION__, $e->getTrace());
+            $log = saveLog($e->getMessage(), get_class() . '::' . __FUNCTION__, $e->getTrace());
             return log_send_response($log);
         }
     }
@@ -25,9 +27,8 @@ class DerivadoController extends Controller
     public function store(Request $request)
     {
         try {
-        
         } catch (\Exception $e) {
-            $log = saveLog($e->getMessage(), get_class().'::'. __FUNCTION__, $e->getTrace());
+            $log = saveLog($e->getMessage(), get_class() . '::' . __FUNCTION__, $e->getTrace());
             return log_send_response($log);
         }
     }
@@ -38,9 +39,8 @@ class DerivadoController extends Controller
     public function show($id)
     {
         try {
-        
         } catch (\Exception $e) {
-            $log = saveLog($e->getMessage(), get_class().'::'. __FUNCTION__, $e->getTrace());
+            $log = saveLog($e->getMessage(), get_class() . '::' . __FUNCTION__, $e->getTrace());
             return log_send_response($log);
         }
     }
@@ -51,9 +51,8 @@ class DerivadoController extends Controller
     public function update(Request $request, $id)
     {
         try {
-        
         } catch (\Exception $e) {
-            $log = saveLog($e->getMessage(), get_class().'::'. __FUNCTION__, $e->getTrace());
+            $log = saveLog($e->getMessage(), get_class() . '::' . __FUNCTION__, $e->getTrace());
             return log_send_response($log);
         }
     }
@@ -64,9 +63,8 @@ class DerivadoController extends Controller
     public function destroy($id)
     {
         try {
-        
         } catch (\Exception $e) {
-            $log = saveLog($e->getMessage(), get_class().'::'. __FUNCTION__, $e->getTrace());
+            $log = saveLog($e->getMessage(), get_class() . '::' . __FUNCTION__, $e->getTrace());
             return log_send_response($log);
         }
     }

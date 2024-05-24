@@ -11,16 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ddjj', function (Blueprint $table) {
+        Schema::create('derivados', function (Blueprint $table) {
             $table->id();
-            $table->string('razon_social');
-            $table->string('periodo');
-            $table->float('total_precio', 10)->default(0);
-            $table->unsignedBigInteger('user_id');
+            $table->string('name');
             $table->timestamps();
-
-            /* Relaciones */
-            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -29,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ddjj');
+        Schema::dropIfExists('derivados');
     }
 };

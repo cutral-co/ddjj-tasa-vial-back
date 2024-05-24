@@ -13,11 +13,17 @@ class DeclaracionJurada extends Model
         'id',
         'periodo',
         'razon_social',
+        'total_precio',
         'user_id'
+    ];
+
+    protected $hidden = [
+        'updated_at',
+        'created_at'
     ];
 
     public function items()
     {
-        return $this->hasMany(ItemDeclaracionJurada::class, 'order_id');
+        return $this->hasMany(DeclaracionJuradaItem::class, 'dj_id');
     }
 }

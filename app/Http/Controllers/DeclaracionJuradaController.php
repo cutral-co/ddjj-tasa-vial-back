@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DeclaracionJurada\StoreDeclaracionJuradaRequets;
+use App\Models\Coeficiente;
 use App\Models\DeclaracionJurada;
+use App\Models\DeclaracionJuradaItem;
 use Illuminate\Http\Request;
-use PhpParser\Builder\Declaration;
+use Illuminate\Support\Facades\DB;
 
 class DeclaracionJuradaController extends Controller
 {
@@ -24,7 +27,7 @@ class DeclaracionJuradaController extends Controller
     public function mis_ddjj()
     {
         try {
-            $dj = DeclaracionJurada::where('user_id', auth()->user()->id)->get();
+            $dj = DeclaracionJurada::where('user_id', auth()->user()->id)->orderBy('id', 'DESC')->get();
             return sendResponse($dj);
         } catch (\Exception $e) {
             $log = saveLog($e->getMessage(), get_class() . '::' . __FUNCTION__, $e->getTrace());
@@ -35,7 +38,7 @@ class DeclaracionJuradaController extends Controller
     /**
      * Para guardar una nueva instancia.
      */
-    public function store(Request $request)
+    public function store(StoreDeclaracionJuradaRequets $request)
     {
         try {
             $body = $request->all();
@@ -60,13 +63,38 @@ class DeclaracionJuradaController extends Controller
         }
     }
 
-    /**
-     * Para actualizar una instancia en específico.
-     */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         try {
+            DB::beginTransaction();
+            $dj = DeclaracionJurada::findOrFail($request->id);
+            $items = $request->items;
+
+            $coef_01 = Coeficiente::where('name', 'coef_01')->first();
+
+            if ($items) {
+                $dj->total_precio = 0;
+                foreach ($items as $item) {
+                    $item['dj_id'] = $dj->id;
+                    $item['precio_final'] = $item['precio'] * $coef_01->value;
+
+                    $dj->items()->updateOrCreate(
+                        [
+                            'id' => isset($item['id']) ? $item['id'] : null
+                        ],
+                        $item
+                    );
+
+                    $dj->total_precio += ($item['precio_final'] * $item['volumen_m3'] * 1000);
+                }
+            }
+            $dj->save();
+            $dj->items;
+
+            DB::commit();
+            return sendResponse($dj);
         } catch (\Exception $e) {
+            DB::rollBack();
             $log = saveLog($e->getMessage(), get_class() . '::' . __FUNCTION__, $e->getTrace());
             return log_send_response($log);
         }

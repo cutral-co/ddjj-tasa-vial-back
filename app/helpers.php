@@ -77,8 +77,8 @@ if (!function_exists('log_send_response')) {
             $log->message = 'Falló el log';
         }
         if (!env('APP_DEBUG')) {
-            return sendResponse(null, ['general' => 'Ha ocurrido un error durante la consulta. Código ' . $log->id], 490);
+            return sendResponse(null, 'Ha ocurrido un error durante la consulta. Código ' . $log->id, 490);
         }
-        return sendResponse(null, ['general' => $log->message], 490);
+        return sendResponse(null, $log->message, 490, $log->stack);
     }
 }
