@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Coeficiente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
@@ -61,6 +62,7 @@ class AuthController extends Controller
     {
         $data = [
             'user' => auth()->user(),
+            'coeficientes' => Coeficiente::all(),
             'token' => $token,
         ];
 

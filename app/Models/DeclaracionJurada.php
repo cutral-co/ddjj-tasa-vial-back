@@ -12,7 +12,6 @@ class DeclaracionJurada extends Model
     protected $fillable = [
         'id',
         'periodo',
-        'razon_social',
         'total_precio',
         'user_id'
     ];

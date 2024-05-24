@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::create('ddjj', function (Blueprint $table) {
             $table->id();
-            $table->string('razon_social');
             $table->string('periodo');
-            $table->float('total_precio', 10)->default(0);
+            $table->double('total_precio', 15)->default(0);
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 

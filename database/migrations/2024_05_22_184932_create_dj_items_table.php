@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('dj_items', function (Blueprint $table) {
             $table->id();
 
-            $table->float('precio', 10);
-            $table->float('precio_final', 10);
-            $table->float('volumen_m3', 10);
+            $table->double('precio', 15);
+            $table->double('precio_final', 15);
+            $table->double('volumen_m3', 15);
             $table->boolean('exento')->default(false);
 
             $table->unsignedBigInteger('dj_id');

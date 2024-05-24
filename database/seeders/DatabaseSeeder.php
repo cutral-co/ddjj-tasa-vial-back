@@ -25,15 +25,15 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('coeficientes')->insert([
-            'name' => 'coef_01',
-            'value' => 1.37,
-            'description' => 'Coef 01'
+            'name' => 'percepcion',
+            'value' => 0.04,
+            'description' => 'Percepción'
         ]);
 
         DB::table('coeficientes')->insert([
-            'name' => 'coef_02',
-            'value' => 1.04,
-            'description' => 'Coef 02'
+            'name' => 'recaudacion',
+            'value' => 0.02,
+            'description' => 'Recaudación'
         ]);
 
         DB::table('coeficientes')->insert([
