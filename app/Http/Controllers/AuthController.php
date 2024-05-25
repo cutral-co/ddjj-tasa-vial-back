@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Coeficiente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
+
+use App\Models\{Coeficiente, Derivado};
 
 class AuthController extends Controller
 {
@@ -63,6 +64,7 @@ class AuthController extends Controller
         $data = [
             'user' => auth()->user(),
             'coeficientes' => Coeficiente::all(),
+            'derivados' => Derivado::all(),
             'token' => $token,
         ];
 

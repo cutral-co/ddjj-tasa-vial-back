@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
 
             $table->double('precio', 15);
-            $table->double('precio_final', 15);
             $table->double('volumen_m3', 15);
             $table->boolean('exento')->default(false);
 

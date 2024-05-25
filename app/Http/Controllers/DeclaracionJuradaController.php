@@ -27,9 +27,36 @@ class DeclaracionJuradaController extends Controller
     public function mis_ddjj()
     {
         try {
-            $dj = DeclaracionJurada::where('user_id', auth()->user()->id)->orderBy('id', 'DESC')->get();
+            $dj = DeclaracionJurada::where('user_id', auth()->user()->id)->with('items.derivado')->orderBy('id', 'DESC')->get();
             return sendResponse($dj);
         } catch (\Exception $e) {
+            $log = saveLog($e->getMessage(), get_class() . '::' . __FUNCTION__, $e->getTrace());
+            return log_send_response($log);
+        }
+    }
+
+    public function store(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $items = $request->items;
+
+            $body = $request->all();
+            unset($body['items']);
+            $body['user_id'] = auth()->user()->id;
+
+            $dj = DeclaracionJurada::create($body);
+
+            foreach ($items as $item) {
+                $item['dj_id'] = $dj->id;
+                $dj->items()->insert($item);
+            }
+
+            $dj->items;
+            DB::commit();
+            return sendResponse($dj);
+        } catch (\Exception $e) {
+            DB::rollBack();
             $log = saveLog($e->getMessage(), get_class() . '::' . __FUNCTION__, $e->getTrace());
             return log_send_response($log);
         }
@@ -38,7 +65,7 @@ class DeclaracionJuradaController extends Controller
     /**
      * Para guardar una nueva instancia.
      */
-    public function store(StoreDeclaracionJuradaRequets $request)
+    /* public function store(StoreDeclaracionJuradaRequets $request)
     {
         try {
             $body = $request->all();
@@ -49,7 +76,7 @@ class DeclaracionJuradaController extends Controller
             $log = saveLog($e->getMessage(), get_class() . '::' . __FUNCTION__, $e->getTrace());
             return log_send_response($log);
         }
-    }
+    } */
 
     /**
      * Para mostrar una instancia en específico.

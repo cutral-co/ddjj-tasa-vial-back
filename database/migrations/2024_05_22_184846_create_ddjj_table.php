@@ -14,7 +14,12 @@ return new class extends Migration
         Schema::create('ddjj', function (Blueprint $table) {
             $table->id();
             $table->string('periodo');
-            $table->double('total_precio', 15)->default(0);
+
+            $table->double('total', 15)->default(0);
+            $table->double('total_percibido', 15)->default(0);
+            $table->double('gastos_adm', 15)->default(0);
+            $table->double('total_pagar', 15)->default(0);
+
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 

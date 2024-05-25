@@ -12,14 +12,13 @@ class DeclaracionJuradaItem extends Model
     protected $fillable = [
         'id',
         'precio',
-        'precio_final',
         'volumen_m3',
         'derivado_id',
         'dj_id',
     ];
 
     protected $hidden = [
-        'derivado_id',
+        'dj_id',
         'updated_at',
         'created_at'
     ];

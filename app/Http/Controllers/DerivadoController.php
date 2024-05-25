@@ -27,6 +27,8 @@ class DerivadoController extends Controller
     public function store(Request $request)
     {
         try {
+            $data = $request->all();
+            return $data;
         } catch (\Exception $e) {
             $log = saveLog($e->getMessage(), get_class() . '::' . __FUNCTION__, $e->getTrace());
             return log_send_response($log);
