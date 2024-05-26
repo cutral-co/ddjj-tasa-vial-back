@@ -23,6 +23,12 @@ class DatabaseSeeder extends Seeder
         DB::table('derivados')->insert([
             'name' => 'Derivado 01',
         ]);
+        DB::table('derivados')->insert([
+            'name' => 'Derivado 02',
+        ]);
+        DB::table('derivados')->insert([
+            'name' => 'Derivado 03',
+        ]);
 
         DB::table('coeficientes')->insert([
             'name' => 'percepcion',
