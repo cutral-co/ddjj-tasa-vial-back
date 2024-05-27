@@ -27,8 +27,19 @@ class DeclaracionJurada extends Model
         'created_at'
     ];
 
+    protected $appends = ['is_rectificable'];
+
     public function items()
     {
         return $this->hasMany(DeclaracionJuradaItem::class, 'dj_id');
+    }
+
+    public function getIsRectificableAttribute()
+    {
+        $maxRectificador = $this::where('user_id', $this->user_id)
+            ->where('periodo', $this->periodo)
+            ->max('rectificativa');
+
+        return $this->rectificativa == $maxRectificador;
     }
 }

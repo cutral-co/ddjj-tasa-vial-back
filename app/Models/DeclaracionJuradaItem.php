@@ -13,6 +13,7 @@ class DeclaracionJuradaItem extends Model
         'id',
         'precio',
         'volumen_m3',
+        'percepcion',
         'derivado_id',
         'dj_id',
     ];

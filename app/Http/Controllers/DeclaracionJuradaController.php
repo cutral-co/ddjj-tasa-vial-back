@@ -27,8 +27,17 @@ class DeclaracionJuradaController extends Controller
     public function mis_ddjj()
     {
         try {
-            $dj = DeclaracionJurada::where('user_id', auth()->user()->id)->with('items.derivado')->orderBy('id', 'DESC')->get();
-            return sendResponse($dj);
+            $djs = DeclaracionJurada::where('user_id', auth()->user()->id)
+                ->with('items.derivado')
+                ->orderBy('periodo', 'desc')
+                ->orderBy('rectificativa', 'desc') // o 'desc' según necesites
+                ->get();
+
+            foreach ($djs as $dj) {
+                $dj->is_max_rectificador;
+            }
+
+            return sendResponse($djs);
         } catch (\Exception $e) {
             $log = saveLog($e->getMessage(), get_class() . '::' . __FUNCTION__, $e->getTrace());
             return log_send_response($log);
@@ -49,20 +58,25 @@ class DeclaracionJuradaController extends Controller
                 ->where('user_id', $body['user_id'])
                 ->orderBy('rectificativa', 'desc')
                 ->first();
+
             if ($dj) {
                 $body['rectificativa'] = $dj->rectificativa + 1;
+            } else {
+                $body['rectificativa'] = 0;
             }
 
             $dj = DeclaracionJurada::create($body);
 
             foreach ($items as $item) {
+                unset($item['id']);
                 $item['dj_id'] = $dj->id;
-                $dj->items()->insert($item);
+                $dj->items()->create($item);
             }
 
             $dj->items;
             DB::commit();
-            return sendResponse($dj);
+
+            return $this->mis_ddjj();
         } catch (\Exception $e) {
             DB::rollBack();
             $log = saveLog($e->getMessage(), get_class() . '::' . __FUNCTION__, $e->getTrace());

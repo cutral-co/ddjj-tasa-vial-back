@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
 
         DB::table('coeficientes')->insert([
             'name' => 'percepcion',
-            'value' => 0.04,
+            'value' => 0.045,
             'description' => 'Percepción'
         ]);
 
