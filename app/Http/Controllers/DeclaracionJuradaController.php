@@ -45,6 +45,14 @@ class DeclaracionJuradaController extends Controller
             unset($body['items']);
             $body['user_id'] = auth()->user()->id;
 
+            $dj = DeclaracionJurada::where('periodo', $request->periodo)
+                ->where('user_id', $body['user_id'])
+                ->orderBy('rectificativa', 'desc')
+                ->first();
+            if ($dj) {
+                $body['rectificativa'] = $dj->rectificativa + 1;
+            }
+
             $dj = DeclaracionJurada::create($body);
 
             foreach ($items as $item) {

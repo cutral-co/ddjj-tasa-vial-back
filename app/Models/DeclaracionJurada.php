@@ -17,6 +17,7 @@ class DeclaracionJurada extends Model
         'total_percibido',
         'gastos_adm',
         'total_pagar',
+        'rectificativa',
 
         'user_id'
     ];

@@ -20,6 +20,8 @@ return new class extends Migration
             $table->double('gastos_adm', 15)->default(0);
             $table->double('total_pagar', 15)->default(0);
 
+            $table->integer('rectificativa')->default(0);
+
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('description');
-            $table->float('value');
+            $table->float('value', 8, 4);
             $table->timestamps();
         });
     }
