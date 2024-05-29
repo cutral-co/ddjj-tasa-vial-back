@@ -10,6 +10,7 @@ Route::group(['middleware' => ['jwt.verify']], function () {
     Route::post('logout', [AuthController::class, 'logout']);
 
     Route::get('dj/mis_ddjj', [DeclaracionJuradaController::class, 'mis_ddjj']);
+    Route::get('dj/mis_ddjj/constancia', [DeclaracionJuradaController::class, 'getConstanciaDJ']);
 
     Route::post('dj/update', [DeclaracionJuradaController::class, 'update']);
     Route::resource('dj', DeclaracionJuradaController::class)->except(['update']);

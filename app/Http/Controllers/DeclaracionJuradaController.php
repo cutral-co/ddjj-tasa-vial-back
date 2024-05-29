@@ -7,6 +7,7 @@ use App\Http\Requests\DeclaracionJurada\StoreDeclaracionJuradaRequets;
 use App\Models\Coeficiente;
 use App\Models\DeclaracionJurada;
 use App\Models\DeclaracionJuradaItem;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -159,5 +160,16 @@ class DeclaracionJuradaController extends Controller
             $log = saveLog($e->getMessage(), get_class() . '::' . __FUNCTION__, $e->getTrace());
             return log_send_response($log);
         }
+    }
+
+    public function getConstanciaDJ(Request $request)
+    {
+        $dj = DeclaracionJurada::where('id', $request->id)->with('items.derivado')->first();
+
+        $pdf = Pdf::loadView("pdf.contancia_dj", [
+            'dj' => $dj
+        ]);
+
+        return $pdf->download("constancia_$dj->periodo.pdf");
     }
 }

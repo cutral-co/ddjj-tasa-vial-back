@@ -14,6 +14,7 @@ class DeclaracionJuradaItem extends Model
         'precio',
         'volumen_m3',
         'percepcion',
+        'sub_total',
         'derivado_id',
         'dj_id',
     ];

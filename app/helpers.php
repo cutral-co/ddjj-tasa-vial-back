@@ -82,3 +82,24 @@ if (!function_exists('log_send_response')) {
         return sendResponse(null, $log->message, 490, $log->stack);
     }
 }
+
+if (!function_exists('formatoMoneda')) {
+    function formatoMoneda($numero)
+    {
+        if (!$numero) {
+            return '$ ' . number_format(0, 2, ',', '.');
+        }
+        return '$ ' . number_format($numero, 2, ',', '.');
+    }
+}
+
+if (!function_exists('decimalToPercentage')) {
+    function decimalToPercentage($decimal = null)
+    {
+        if ($decimal === null || $decimal === 0) {
+            return "0%";
+        }
+        $percentage = $decimal * 100;
+        return $percentage . "%";
+    }
+}

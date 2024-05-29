@@ -17,7 +17,7 @@ return new class extends Migration
             $table->double('precio', 15);
             $table->double('volumen_m3', 15);
             $table->float('percepcion', 8, 4);
-            $table->boolean('exento')->default(false);
+            $table->double('sub_total', 15);
 
             $table->unsignedBigInteger('dj_id');
             $table->unsignedBigInteger('derivado_id');

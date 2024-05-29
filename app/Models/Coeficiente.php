@@ -11,4 +11,9 @@ class Coeficiente extends Model
         'value',
         'description',
     ];
+
+    protected $hidden = [
+        'updated_at',
+        'created_at'
+    ];
 }
