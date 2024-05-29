@@ -15,6 +15,10 @@
             <td>{{$dj->periodo}}</td>
         </tr>
         <tr>
+            <td class="bold">Rectificativa:</td>
+            <td>{{$dj->rectificativa}}</td>
+        </tr>
+        <tr>
             <td class="bold">Razon social:</td>
             <td>{{'razon_social'}}</td>
         </tr>
@@ -23,8 +27,8 @@
             <td>{{'direction'}}</td>
         </tr>
         <tr>
-            <td class="bold">Fecha:</td>
-            <td>{{date("d/m/Y", strtotime($dj->created_at))}}</td>
+            <td class="bold">Fecha de alta:</td>
+            <td>{{date("d/m/Y H:i:s", strtotime($dj->created_at))}}</td>
         </tr>
     </table>
 </div>
