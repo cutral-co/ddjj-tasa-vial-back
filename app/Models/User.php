@@ -30,6 +30,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array<int, string>
      */
     protected $hidden = [
+        'person',
         'password',
         'created_at',
         'updated_at',
@@ -53,5 +54,10 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function person()
+    {
+        return $this->belongsTo(Person::class);
     }
 }

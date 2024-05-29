@@ -20,15 +20,15 @@
         </tr>
         <tr>
             <td class="bold">Razon social:</td>
-            <td>{{'razon_social'}}</td>
+            <td>{{$dj->user->person->razon_social}}</td>
         </tr>
         <tr>
             <td class="bold">Dirección:</td>
-            <td>{{'direction'}}</td>
+            <td>{{$dj->user->person->direccion}}</td>
         </tr>
         <tr>
             <td class="bold">Fecha de alta:</td>
-            <td>{{date("d/m/Y H:i:s", strtotime($dj->created_at))}}</td>
+            <td>{{date("d/m/Y H:i", strtotime($dj->created_at))}}</td>
         </tr>
     </table>
 </div>

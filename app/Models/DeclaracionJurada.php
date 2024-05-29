@@ -42,4 +42,9 @@ class DeclaracionJurada extends Model
 
         return $this->rectificativa == $maxRectificador;
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

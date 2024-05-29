@@ -164,7 +164,7 @@ class DeclaracionJuradaController extends Controller
 
     public function getConstanciaDJ(Request $request)
     {
-        $dj = DeclaracionJurada::where('id', $request->id)->with('items.derivado')->first();
+        $dj = DeclaracionJurada::where('id', $request->id)->with('items.derivado')->with('user.person')->first();
 
         $pdf = Pdf::loadView("pdf.contancia_dj", [
             'dj' => $dj

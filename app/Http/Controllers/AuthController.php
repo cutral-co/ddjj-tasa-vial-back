@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
-use App\Models\{Coeficiente, Derivado};
+use App\Models\{Coeficiente, Derivado, User};
 
 class AuthController extends Controller
 {
@@ -61,8 +61,10 @@ class AuthController extends Controller
 
     protected function respondWithToken($token)
     {
+        $user = User::where('id', auth()->user()->id)->first();
         $data = [
-            'user' => auth()->user(),
+            'user' => $user,
+            'person' => $user->person,
             'coeficientes' => Coeficiente::all(),
             'derivados' => Derivado::all(),
             'token' => $token,

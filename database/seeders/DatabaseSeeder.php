@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Person;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\{DB, Hash};
 
@@ -15,8 +18,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'cuit' => '20999999991',
+        $cuit = "20999999991";
+        $person = Person::create([
+            'cuit' => "$cuit",
+            'razon_social' => 'Usuario de Prueba',
+            'direccion' => 'Algun lugar 1234',
+        ]);
+
+        User::create([
+            'person_id' => $person->id,
+            'cuit' => "$cuit",
             'password' => Hash::make('20999999991'),
         ]);
 
