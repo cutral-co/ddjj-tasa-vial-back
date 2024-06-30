@@ -16,13 +16,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('cuit', 11)->unique();
-            $table->string('password');
-            $table->unsignedBigInteger('person_id');
-            $table->rememberToken();
             $table->timestamps();
-
-            /* Relaciones */
-            $table->foreign('person_id')->references('id')->on('persons');
         });
     }
 

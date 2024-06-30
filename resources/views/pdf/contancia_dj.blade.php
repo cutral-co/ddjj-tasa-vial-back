@@ -18,17 +18,19 @@
             <td class="bold">Rectificativa:</td>
             <td>{{$dj->rectificativa}}</td>
         </tr>
-        <tr>
+        {{-- <tr>
             <td class="bold">Razon social:</td>
-            <td>{{$dj->user->person->razon_social}}</td>
-        </tr>
+            <td>{{$dj->user->person->name}}</td>
+        </tr> --}}
+        @if ($dj->user->person->direccion)
         <tr>
             <td class="bold">Dirección:</td>
-            <td>{{$dj->user->person->direccion}}</td>
+            <td>{{$dj->user->person->direccion['string']}}</td>
         </tr>
+        @endif
         <tr>
-            <td class="bold">Fecha de alta:</td>
-            <td>{{date("d/m/Y H:i", strtotime($dj->created_at))}}</td>
+            <td class="bold">Fecha de presentación:</td>
+            <td>{{date("d/m/Y H:i", strtotime($dj->fecha_presentacion))}}</td>
         </tr>
     </table>
 </div>
@@ -65,7 +67,7 @@
     <tr>
         <td colSpan="3"></td>
         <td>
-            Gastos administrativos <small>(2%)</small>
+            Gastos administrativos <small>(5%)</small>
         </td>
         <td>
 

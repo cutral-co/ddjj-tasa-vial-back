@@ -49,11 +49,6 @@ class AuthController extends Controller
         ]);
     }
 
-    public function get_user()
-    {
-        return response()->json(['user' => auth()->user()]);
-    }
-
     public function refresh()
     {
         return $this->respondWithToken(JWTAuth::refresh());
@@ -61,10 +56,11 @@ class AuthController extends Controller
 
     protected function respondWithToken($token)
     {
-        $user = User::where('id', auth()->user()->id)->first();
+        $user = User::where('id', auth()->user()->id)->with('person')->first();
         $data = [
             'user' => $user,
-            'person' => $user->person,
+            'roles' => $user->roles,
+            'permissions' => $user->permissions,
             'coeficientes' => Coeficiente::all(),
             'derivados' => Derivado::all(),
             'token' => $token,

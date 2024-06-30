@@ -53,18 +53,16 @@ class DeclaracionJuradaController extends Controller
 
             $body = $request->all();
             unset($body['items']);
+
             $body['user_id'] = auth()->user()->id;
+            $body['fecha_presentacion'] = \Carbon\Carbon::now();
 
             $dj = DeclaracionJurada::where('periodo', $request->periodo)
                 ->where('user_id', $body['user_id'])
                 ->orderBy('rectificativa', 'desc')
                 ->first();
 
-            if ($dj) {
-                $body['rectificativa'] = $dj->rectificativa + 1;
-            } else {
-                $body['rectificativa'] = 0;
-            }
+            $body['rectificativa'] = $dj ? $dj->rectificativa + 1 : 0;
 
             $dj = DeclaracionJurada::create($body);
 

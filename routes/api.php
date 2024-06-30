@@ -8,6 +8,7 @@ Route::post('login', [AuthController::class, 'login']);
 
 Route::group(['middleware' => ['jwt.verify']], function () {
     Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('refresh', [AuthController::class, 'refresh']);
 
     Route::get('dj/mis_ddjj', [DeclaracionJuradaController::class, 'mis_ddjj']);
     Route::get('dj/mis_ddjj/constancia', [DeclaracionJuradaController::class, 'getConstanciaDJ']);

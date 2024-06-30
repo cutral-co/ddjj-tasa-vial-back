@@ -2,8 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
-use Exception;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
+
+use App\Models\User;
 
 class JwtMiddleware extends \PHPOpenSourceSaver\JWTAuth\Http\Middleware\BaseMiddleware
 {
@@ -13,11 +14,20 @@ class JwtMiddleware extends \PHPOpenSourceSaver\JWTAuth\Http\Middleware\BaseMidd
      * @param  \Illuminate\Http\Request  $request
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, \Closure $next)
     {
         try {
-            $user = \PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth::parseToken()->authenticate();
-        } catch (Exception $e) {
+            $token = JWTAuth::parseToken();
+
+            $payload = $token->getPayload();
+
+            $id = $payload('id');
+            $cuit = $payload('cuit');
+
+            !User::find($id) && User::create(['id' => $id, 'cuit' => $cuit]);
+
+            JWTAuth::authenticate($token);
+        } catch (\Exception $e) {
             if ($e instanceof \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException) {
                 return sendResponse(null, 'Llave invalida', 450);
             }
@@ -25,8 +35,7 @@ class JwtMiddleware extends \PHPOpenSourceSaver\JWTAuth\Http\Middleware\BaseMidd
                 return sendResponse(null, 'Llave expiro', 450);
             }
 
-            return sendResponse(null, 'Llave sin autorizacion', 450);
-
+            return sendResponse($e, 'Llave sin autorización', 450);
         }
 
         return $next($request);
