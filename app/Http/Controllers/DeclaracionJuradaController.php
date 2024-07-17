@@ -22,7 +22,7 @@ class DeclaracionJuradaController extends Controller
             $subQuery = DeclaracionJurada::select('user_id', 'periodo', DB::raw('MAX(rectificativa) as max_rectificativa'))
                 ->groupBy('user_id', 'periodo');
 
-            $djs = DeclaracionJurada::with(['items.derivado', 'user.person'])
+            $djs = DeclaracionJurada::with(['items.derivado', 'user'])
                 ->joinSub($subQuery, 'max_djs', function ($join) {
                     $join->on('ddjj.user_id', '=', 'max_djs.user_id')
                         ->on('ddjj.periodo', '=', 'max_djs.periodo')
