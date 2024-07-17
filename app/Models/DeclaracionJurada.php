@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Model;
 
 class DeclaracionJurada extends Model
 {
+    use LogsActivity;
+
     protected $table = 'ddjj';
 
     protected $fillable = [
