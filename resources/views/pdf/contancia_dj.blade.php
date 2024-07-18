@@ -69,7 +69,7 @@
         </td>
     </tr>
     <tr>
-        <td colSpan="4"></td>
+        <td colSpan="3"></td>
         <td>
             Gastos administrativos <small>(5%)</small>
         </td>
@@ -79,7 +79,7 @@
         </td>
     </tr>
     <tr>
-        <td colSpan="4"></td>
+        <td colSpan="3"></td>
         <td>Total a pagar </td>
         <td>
             <b>$ {{ number_format($dj->total_pagar, 2, ',', '.')}}</b>
