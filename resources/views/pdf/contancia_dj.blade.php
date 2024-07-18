@@ -11,6 +11,14 @@
         </tr>
         <hr>
         <tr>
+            <td class="bold">Razon social:</td>
+            <td>{{$dj->user->person->name}}</td>
+        </tr>
+        <tr>
+            <td class="bold">CUIT:</td>
+            <td>{{$dj->user->person->cuit}}</td>
+        </tr>
+        <tr>
             <td class="bold">Período:</td>
             <td>{{$dj->periodo}}</td>
         </tr>
@@ -18,10 +26,6 @@
             <td class="bold">Rectificativa:</td>
             <td>{{$dj->rectificativa}}</td>
         </tr>
-        {{-- <tr>
-            <td class="bold">Razon social:</td>
-            <td>{{$dj->user->person->name}}</td>
-        </tr> --}}
         @if ($dj->user->person->direccion)
         <tr>
             <td class="bold">Dirección:</td>

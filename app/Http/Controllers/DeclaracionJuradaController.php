@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\DeclaracionJurada\StoreDeclaracionJuradaRequets;
-use App\Models\Coeficiente;
-use App\Models\DeclaracionJurada;
-use App\Models\DeclaracionJuradaItem;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
+use App\Http\Controllers\Controller;
+use App\Models\{Coeficiente, DeclaracionJurada};
 
 class DeclaracionJuradaController extends Controller
 {
@@ -22,7 +20,7 @@ class DeclaracionJuradaController extends Controller
             $subQuery = DeclaracionJurada::select('user_id', 'periodo', DB::raw('MAX(rectificativa) as max_rectificativa'))
                 ->groupBy('user_id', 'periodo');
 
-            $djs = DeclaracionJurada::with(['items.derivado', 'user'])
+            $djs = DeclaracionJurada::with(['items.derivado', 'user.person'])
                 ->joinSub($subQuery, 'max_djs', function ($join) {
                     $join->on('ddjj.user_id', '=', 'max_djs.user_id')
                         ->on('ddjj.periodo', '=', 'max_djs.periodo')
