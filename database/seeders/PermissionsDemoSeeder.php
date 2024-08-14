@@ -31,5 +31,8 @@ class PermissionsDemoSeeder extends Seeder
         $role1->givePermissionTo('permission.asign');
         $role1->givePermissionTo('role.view');
         $role1->givePermissionTo('role.asign');
+
+        /* APPs */
+        Permission::create(['name' => 'admin.view.ddjj', 'description' => 'Puede ver Declaraciones Juaradas']);
     }
 }

@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -18,6 +19,11 @@ return new class extends Migration
             $table->float('value', 8, 4);
             $table->timestamps();
         });
+
+        DB::table('coeficientes')->insert([
+            ['name' => 'percepcion', 'description' => 'Percepción', 'value' => 0.045],
+            ['name' => 'recaudacion', 'description' => 'Recaudación', 'value' => 0.05]
+        ]);
     }
 
     /**
@@ -25,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('coeficiente');
+        Schema::dropIfExists('coeficientes');
     }
 };

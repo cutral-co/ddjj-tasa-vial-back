@@ -18,45 +18,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $cuit = "20999999991";
+        $cuit = "20319602020";
         $person = Person::create([
-            'cuit' => "$cuit",
-            'razon_social' => 'Usuario de Prueba',
+            'cuit' => $cuit,
+            'name' => 'Usuario de Prueba',
             'direccion' => 'Algun lugar 1234',
         ]);
 
         User::create([
             'person_id' => $person->id,
-            'cuit' => "$cuit",
-            'password' => Hash::make('20999999991'),
-        ]);
-
-        DB::table('derivados')->insert([
-            'name' => 'Derivado 01',
-        ]);
-        DB::table('derivados')->insert([
-            'name' => 'Derivado 02',
-        ]);
-        DB::table('derivados')->insert([
-            'name' => 'Derivado 03',
-        ]);
-
-        DB::table('coeficientes')->insert([
-            'name' => 'percepcion',
-            'value' => 0.045,
-            'description' => 'Percepción'
-        ]);
-
-        DB::table('coeficientes')->insert([
-            'name' => 'recaudacion',
-            'value' => 0.02,
-            'description' => 'Recaudación'
-        ]);
-
-        DB::table('coeficientes')->insert([
-            'name' => 'coef_03',
-            'value' => 1.75,
-            'description' => 'Coef 03'
+            'cuit' => $cuit,
+            'password' => '$2y$10$tW7KgFlt5d4o9JIabl2YJO8Tlj7IrU7kitUhm94z4cjylET9GsLum',
         ]);
 
         $this->call([

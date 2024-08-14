@@ -21,6 +21,7 @@ return new class extends Migration
             $table->double('total_pagar', 15)->default(0);
 
             $table->integer('rectificativa')->default(0);
+            $table->timestamp('fecha_presentacion');
 
             $table->unsignedBigInteger('user_id');
             $table->timestamps();

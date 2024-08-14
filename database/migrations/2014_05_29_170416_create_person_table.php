@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('persons', function (Blueprint $table) {
             $table->id();
             $table->string('cuit');
-            $table->string('razon_social');
+            $table->string('name');
             $table->string('direccion');
             $table->timestamps();
         });
