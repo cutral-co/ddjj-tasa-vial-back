@@ -25,7 +25,7 @@ class JwtMiddleware extends \PHPOpenSourceSaver\JWTAuth\Http\Middleware\BaseMidd
                 return sendResponse(null, 'Llave expiro', 450);
             }
 
-            return sendResponse(null, 'Llave sin autorizacion', 450);
+            return sendResponse(null, $e->getMessage(), 450);
 
         }
 

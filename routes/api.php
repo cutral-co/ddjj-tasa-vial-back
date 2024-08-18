@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\{AuthController, DeclaracionJuradaController, DerivadoController};
+use App\Http\Controllers\{AuthController, DeclaracionJuradaController, DerivadoController, TransferenciaController};
 
 Route::post('login', [AuthController::class, 'login']);
 
@@ -11,9 +11,10 @@ Route::group(['middleware' => ['jwt.verify']], function () {
 
     Route::get('dj/mis_ddjj', [DeclaracionJuradaController::class, 'mis_ddjj']);
     Route::get('dj/mis_ddjj/constancia', [DeclaracionJuradaController::class, 'getConstanciaDJ']);
-
     Route::post('dj/update', [DeclaracionJuradaController::class, 'update']);
     Route::resource('dj', DeclaracionJuradaController::class)->except(['update']);
+
+    Route::resource('transferencia', TransferenciaController::class)->except(['update']);
 
     Route::resource('derivado', DerivadoController::class)->except(['update']);
 

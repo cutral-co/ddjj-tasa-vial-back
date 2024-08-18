@@ -19,6 +19,21 @@ class DeclaracionJuradaController extends Controller
     public function index()
     {
         try {
+            $subQuery = DeclaracionJurada::select('user_id', 'periodo', DB::raw('MAX(rectificativa) as max_rectificativa'))
+                ->groupBy('user_id', 'periodo');
+
+            $djs = DeclaracionJurada::with(['items.derivado', 'user.person'])
+                ->joinSub($subQuery, 'max_djs', function ($join) {
+                    $join->on('ddjj.user_id', '=', 'max_djs.user_id')
+                        ->on('ddjj.periodo', '=', 'max_djs.periodo')
+                        ->on('ddjj.rectificativa', '=', 'max_djs.max_rectificativa');
+                })
+                ->orderBy('ddjj.periodo', 'desc')
+                ->get();
+
+            $djs->append('transferencias');
+
+            return sendResponse($djs);
         } catch (\Exception $e) {
             $log = saveLog($e->getMessage(), get_class() . '::' . __FUNCTION__, $e->getTrace());
             return log_send_response($log);
@@ -32,7 +47,7 @@ class DeclaracionJuradaController extends Controller
                 ->with('items.derivado')
                 ->with('user.person')
                 ->orderBy('periodo', 'desc')
-                ->orderBy('rectificativa', 'desc') // o 'desc' según necesites
+                ->orderBy('rectificativa', 'desc')
                 ->get();
 
             foreach ($djs as $dj) {

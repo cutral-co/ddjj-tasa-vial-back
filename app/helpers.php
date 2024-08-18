@@ -79,7 +79,7 @@ if (!function_exists('log_send_response')) {
         if (!env('APP_DEBUG')) {
             return sendResponse(null, 'Ha ocurrido un error durante la consulta. Código ' . $log->id, 490);
         }
-        return sendResponse(null, $log->message, 490, $log->stack);
+        return sendResponse(null, $log->message, 490);
     }
 }
 

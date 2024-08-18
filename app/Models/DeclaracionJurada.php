@@ -48,4 +48,23 @@ class DeclaracionJurada extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function transferencias()
+    {
+        return $this->hasMany(Transferencia::class, 'dj_id');
+    }
+
+    public function getTransferenciasAttribute()
+    {
+        $transferencias = $this->transferencias();
+
+        if ($transferencias->get()->isEmpty()) {
+            return null;
+        }
+
+        return [
+            'data' => $transferencias->get(),
+            'total' => $transferencias->sum('monto'),
+        ];
+    }
 }
